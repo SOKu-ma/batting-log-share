@@ -5,6 +5,7 @@
 ## URL
 
 ```text
+https://soku-ma.github.io/batting-log-share/?code=XXXX
 https://soku-ma.github.io/batting-log-share/invite.html?code=XXXX
 ```
 

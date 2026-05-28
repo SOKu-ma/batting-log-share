@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>野球打率ノート | 共有された記録</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --navy: #0b2545;
+      --blue: #1f5f95;
+      --ink: #102033;
+      --muted: #627083;
+      --line: #d8e1eb;
+      --surface: #f4f7fb;
+      --card: #ffffff;
+      --accent: #f2d6a2;
+      --code-bg: #eaf1f8;
+      --shadow: 0 18px 48px rgba(11, 37, 69, 0.16);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --navy: #061425;
+        --blue: #4f93c8;
+        --ink: #eef5ff;
+        --muted: #a8b5c7;
+        --line: #26384c;
+        --surface: #07111f;
+        --card: #0d1b2c;
+        --accent: #d6b47b;
+        --code-bg: #132941;
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.42);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(31, 95, 149, 0.16), transparent 34rem),
+        var(--surface);
+    }
+
+    main {
+      width: min(100%, 560px);
+      margin: 0 auto;
+      padding: 28px 18px 36px;
+    }
+
+    .hero {
+      padding: 30px 24px;
+      border-radius: 28px;
+      color: #fff;
+      background: linear-gradient(145deg, var(--navy), #174f7c);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 18px 0 10px;
+      font-size: clamp(30px, 9vw, 46px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    .card {
+      margin-top: 18px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--card);
+      box-shadow: 0 8px 24px rgba(11, 37, 69, 0.08);
+    }
+
+    .codeLabel {
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .codeRow {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .code {
+      flex: 1;
+      min-width: 0;
+      padding: 16px;
+      border-radius: 16px;
+      background: var(--code-bg);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: clamp(20px, 6vw, 28px);
+      font-weight: 900;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    button,
+    a.button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 54px;
+      border: 0;
+      border-radius: 16px;
+      padding: 0 18px;
+      font: inherit;
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .primary {
+      margin-top: 18px;
+      color: #fff;
+      background: var(--navy);
+    }
+
+    .secondary {
+      color: var(--ink);
+      border: 1px solid var(--line);
+      background: transparent;
+    }
+
+    .smallButton {
+      width: auto;
+      min-width: 76px;
+      min-height: auto;
+      padding: 0 14px;
+      color: var(--navy);
+      background: var(--accent);
+      white-space: nowrap;
+    }
+
+    .storeGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .steps li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .steps span {
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 26px;
+      height: 26px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--blue);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .toast {
+      margin-top: 12px;
+      color: var(--blue);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    @media (max-width: 420px) {
+      .storeGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .codeRow {
+        flex-direction: column;
+      }
+
+      .smallButton {
+        width: 100%;
+        min-height: 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">野球打率ノート</div>
+      <h1>共有された記録を開く</h1>
+      <p>招待コードを使って、共有された成績を閲覧できます。編集はできません。</p>
+    </section>
+
+    <section id="validState" class="card">
+      <div class="codeLabel">招待コード</div>
+      <div class="codeRow">
+        <div id="inviteCode" class="code">----</div>
+        <button id="copyButton" class="smallButton" type="button">コピー</button>
+      </div>
+      <a id="openAppButton" class="button primary" href="#">アプリで開く</a>
+      <p style="margin-top: 12px;">アプリが入っている場合は、上のボタンで招待コード入力済みの画面を開けます。</p>
+      <div id="copyToast" class="toast hidden">コピーしました</div>
+    </section>
+
+    <section id="missingState" class="card hidden">
+      <h2 style="margin: 0 0 8px;">招待コードが見つかりません</h2>
+      <p>共有されたURLをもう一度開くか、送信者から招待コードを受け取ってください。</p>
+    </section>
+
+    <section class="card">
+      <h2 style="margin: 0 0 8px;">アプリがない場合</h2>
+      <p>先にアプリをインストールしてから、このページまたは受け取ったメッセージに戻ってください。</p>
+      <div class="storeGrid">
+        <a class="button secondary" href="https://apps.apple.com/jp/app/baseball-stats-at-bat-log/id6761696678">App Store</a>
+        <a class="button secondary" href="https://play.google.com/store/apps/details?id=com.sokuma.battinglogapp">Google Play</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin: 0 0 8px;">うまく開けない場合</h2>
+      <ul class="steps">
+        <li><span>1</span><div>アプリを開きます。</div></li>
+        <li><span>2</span><div>設定タブから「データ共有」を開きます。</div></li>
+        <li><span>3</span><div>招待コードを入力して「共有に参加」を押します。</div></li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = (params.get('code') || params.get('invite_code') || '').trim();
+    const validState = document.getElementById('validState');
+    const missingState = document.getElementById('missingState');
+    const inviteCode = document.getElementById('inviteCode');
+    const openAppButton = document.getElementById('openAppButton');
+    const copyButton = document.getElementById('copyButton');
+    const copyToast = document.getElementById('copyToast');
+
+    if (!code) {
+      validState.classList.add('hidden');
+      missingState.classList.remove('hidden');
+    } else {
+      inviteCode.textContent = code;
+      openAppButton.href = `battinglog://share-invite?code=${encodeURIComponent(code)}`;
+      copyButton.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(code);
+          copyToast.classList.remove('hidden');
+          window.setTimeout(() => copyToast.classList.add('hidden'), 1800);
+        } catch (error) {
+          window.prompt('招待コードをコピーしてください', code);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
