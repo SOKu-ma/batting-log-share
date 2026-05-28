@@ -165,11 +165,33 @@
       white-space: nowrap;
     }
 
-    .storeGrid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+    .storeBadges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
       margin-top: 12px;
+    }
+
+    .storeBadgeLink {
+      display: inline-flex;
+      width: auto;
+      min-height: 0;
+      padding: 0;
+      border-radius: 10px;
+      background: transparent;
+      line-height: 0;
+    }
+
+    .storeBadgeLink:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 4px;
+    }
+
+    .storeBadge {
+      display: block;
+      width: auto;
+      height: 48px;
     }
 
     .steps {
@@ -212,8 +234,9 @@
     }
 
     @media (max-width: 420px) {
-      .storeGrid {
-        grid-template-columns: 1fr;
+      .storeBadges {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
       .codeRow {
@@ -254,9 +277,29 @@
     <section class="card">
       <h2 style="margin: 0 0 8px;">アプリがない場合</h2>
       <p>先にアプリをインストールしてから、このページまたは受け取ったメッセージに戻ってください。</p>
-      <div class="storeGrid">
-        <a class="button secondary" href="https://apps.apple.com/jp/app/baseball-stats-at-bat-log/id6761696678">App Store</a>
-        <a class="button secondary" href="https://play.google.com/store/apps/details?id=com.sokuma.battinglogapp">Google Play</a>
+      <div class="storeBadges">
+        <a
+          class="storeBadgeLink"
+          href="https://apps.apple.com/jp/app/baseball-stats-at-bat-log/id6761696678"
+          aria-label="App Storeからダウンロード"
+        >
+          <img
+            class="storeBadge"
+            src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83"
+            alt="App Storeからダウンロード"
+          >
+        </a>
+        <a
+          class="storeBadgeLink"
+          href="https://play.google.com/store/apps/details?id=com.sokuma.battinglogapp"
+          aria-label="Google Playで手に入れよう"
+        >
+          <img
+            class="storeBadge"
+            src="https://play.google.com/intl/ja/badges/static/images/badges/ja_badge_web_generic.png"
+            alt="Google Play で手に入れよう"
+          >
+        </a>
       </div>
     </section>
 
