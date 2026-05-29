@@ -7,7 +7,7 @@
   <title>野球打率ノート | 共有された記録</title>
   <style>
     :root {
-      color-scheme: light dark;
+      color-scheme: light;
       --navy: #0b2545;
       --blue: #1f5f95;
       --ink: #102033;
@@ -18,21 +18,6 @@
       --accent: #f2d6a2;
       --code-bg: #eaf1f8;
       --shadow: 0 18px 48px rgba(11, 37, 69, 0.16);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --navy: #061425;
-        --blue: #4f93c8;
-        --ink: #eef5ff;
-        --muted: #a8b5c7;
-        --line: #26384c;
-        --surface: #07111f;
-        --card: #0d1b2c;
-        --accent: #d6b47b;
-        --code-bg: #132941;
-        --shadow: 0 20px 60px rgba(0, 0, 0, 0.42);
-      }
     }
 
     * {
@@ -166,17 +151,20 @@
     }
 
     .storeBadges {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 12px;
       align-items: center;
       margin-top: 12px;
     }
 
     .storeBadgeLink {
-      display: inline-flex;
-      width: auto;
-      min-height: 0;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 50px;
+      min-width: 0;
+      min-height: 50px;
       padding: 0;
       border-radius: 10px;
       background: transparent;
@@ -190,8 +178,9 @@
 
     .storeBadge {
       display: block;
-      width: auto;
-      height: 48px;
+      width: 100%;
+      height: 50px;
+      object-fit: contain;
     }
 
     .steps {
@@ -235,8 +224,7 @@
 
     @media (max-width: 420px) {
       .storeBadges {
-        align-items: flex-start;
-        flex-direction: column;
+        gap: 8px;
       }
 
       .codeRow {
@@ -253,48 +241,52 @@
 <body>
   <main>
     <section class="hero">
-      <div class="eyebrow">野球打率ノート</div>
-      <h1>共有された記録を開く</h1>
-      <p>招待コードを使って、共有された成績を閲覧できます。編集はできません。</p>
+      <div class="eyebrow" data-i18n="brand">野球打率ノート</div>
+      <h1 data-i18n="heroTitle">共有された記録を開く</h1>
+      <p data-i18n="heroBody">招待コードを使って、共有された成績を閲覧できます。編集はできません。</p>
     </section>
 
     <section id="validState" class="card">
-      <div class="codeLabel">招待コード</div>
+      <div class="codeLabel" data-i18n="inviteCodeLabel">招待コード</div>
       <div class="codeRow">
         <div id="inviteCode" class="code">----</div>
-        <button id="copyButton" class="smallButton" type="button">コピー</button>
+        <button id="copyButton" class="smallButton" type="button" data-i18n="copyButton">コピー</button>
       </div>
-      <a id="openAppButton" class="button primary" href="#">アプリで開く</a>
-      <p style="margin-top: 12px;">アプリが入っている場合は、上のボタンで招待コード入力済みの画面を開けます。</p>
-      <div id="copyToast" class="toast hidden">コピーしました</div>
+      <a id="openAppButton" class="button primary" href="#" data-i18n="openAppButton">アプリで開く</a>
+      <p style="margin-top: 12px;" data-i18n="openAppHelp">アプリが入っている場合は、上のボタンで招待コード入力済みの画面を開けます。</p>
+      <div id="copyToast" class="toast hidden" data-i18n="copiedToast">コピーしました</div>
     </section>
 
     <section id="missingState" class="card hidden">
-      <h2 style="margin: 0 0 8px;">招待コードが見つかりません</h2>
-      <p>共有されたURLをもう一度開くか、送信者から招待コードを受け取ってください。</p>
+      <h2 style="margin: 0 0 8px;" data-i18n="missingTitle">招待コードが見つかりません</h2>
+      <p data-i18n="missingBody">共有されたURLをもう一度開くか、送信者から招待コードを受け取ってください。</p>
     </section>
 
     <section class="card">
-      <h2 style="margin: 0 0 8px;">アプリがない場合</h2>
-      <p>先にアプリをインストールしてから、このページまたは受け取ったメッセージに戻ってください。</p>
+      <h2 style="margin: 0 0 8px;" data-i18n="storeTitle">アプリがない場合</h2>
+      <p data-i18n="storeBody">先にアプリをインストールしてから、このページまたは受け取ったメッセージに戻ってください。</p>
       <div class="storeBadges">
         <a
+          id="appStoreLink"
           class="storeBadgeLink"
           href="https://apps.apple.com/jp/app/baseball-stats-at-bat-log/id6761696678"
           aria-label="App Storeからダウンロード"
         >
           <img
+            id="appStoreBadge"
             class="storeBadge"
             src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83"
             alt="App Storeからダウンロード"
           >
         </a>
         <a
+          id="googlePlayLink"
           class="storeBadgeLink"
           href="https://play.google.com/store/apps/details?id=com.sokuma.battinglogapp"
           aria-label="Google Playで手に入れよう"
         >
           <img
+            id="googlePlayBadge"
             class="storeBadge"
             src="https://play.google.com/intl/ja/badges/static/images/badges/ja_badge_web_generic.png"
             alt="Google Play で手に入れよう"
@@ -304,16 +296,96 @@
     </section>
 
     <section class="card">
-      <h2 style="margin: 0 0 8px;">うまく開けない場合</h2>
+      <h2 style="margin: 0 0 8px;" data-i18n="fallbackTitle">うまく開けない場合</h2>
       <ul class="steps">
-        <li><span>1</span><div>アプリを開きます。</div></li>
-        <li><span>2</span><div>設定タブから「データ共有」を開きます。</div></li>
-        <li><span>3</span><div>招待コードを入力して「共有に参加」を押します。</div></li>
+        <li><span>1</span><div data-i18n="fallbackStep1">アプリを開きます。</div></li>
+        <li><span>2</span><div data-i18n="fallbackStep2">設定タブから「データ共有」を開きます。</div></li>
+        <li><span>3</span><div data-i18n="fallbackStep3">招待コードを入力して「共有に参加」を押します。</div></li>
       </ul>
     </section>
   </main>
 
   <script>
+    const translations = {
+      ja: {
+        title: '野球打率ノート | 共有された記録',
+        htmlLang: 'ja',
+        brand: '野球打率ノート',
+        heroTitle: '共有された記録を開く',
+        heroBody: '招待コードを使って、共有された成績を閲覧できます。編集はできません。',
+        inviteCodeLabel: '招待コード',
+        copyButton: 'コピー',
+        openAppButton: 'アプリで開く',
+        openAppHelp: 'アプリが入っている場合は、上のボタンで招待コード入力済みの画面を開けます。',
+        copiedToast: 'コピーしました',
+        missingTitle: '招待コードが見つかりません',
+        missingBody: '共有されたURLをもう一度開くか、送信者から招待コードを受け取ってください。',
+        storeTitle: 'アプリがない場合',
+        storeBody: '先にアプリをインストールしてから、このページまたは受け取ったメッセージに戻ってください。',
+        appStoreAlt: 'App Storeからダウンロード',
+        googlePlayAlt: 'Google Play で手に入れよう',
+        fallbackTitle: 'うまく開けない場合',
+        fallbackStep1: 'アプリを開きます。',
+        fallbackStep2: '設定タブから「データ共有」を開きます。',
+        fallbackStep3: '招待コードを入力して「共有に参加」を押します。',
+        copyPrompt: '招待コードをコピーしてください',
+        appStoreBadgeUrl: 'https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83',
+        googlePlayBadgeUrl: 'https://play.google.com/intl/ja/badges/static/images/badges/ja_badge_web_generic.png'
+      },
+      en: {
+        title: 'Batting Stats Tracker | Shared Records',
+        htmlLang: 'en',
+        brand: 'Batting Stats Tracker',
+        heroTitle: 'Open shared records',
+        heroBody: 'Use the invite code to view shared batting records. Editing is not available.',
+        inviteCodeLabel: 'Invite code',
+        copyButton: 'Copy',
+        openAppButton: 'Open in app',
+        openAppHelp: 'If the app is installed, this opens the invite screen with the code filled in.',
+        copiedToast: 'Copied',
+        missingTitle: 'Invite code not found',
+        missingBody: 'Open the shared URL again, or ask the sender for the invite code.',
+        storeTitle: 'If you do not have the app',
+        storeBody: 'Install the app first, then return to this page or the message you received.',
+        appStoreAlt: 'Download on the App Store',
+        googlePlayAlt: 'Get it on Google Play',
+        fallbackTitle: 'If it does not open',
+        fallbackStep1: 'Open the app.',
+        fallbackStep2: 'Open Data Sharing from the Settings tab.',
+        fallbackStep3: 'Enter the invite code and tap Join Shared Data.',
+        copyPrompt: 'Copy the invite code',
+        appStoreBadgeUrl: 'https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83',
+        googlePlayBadgeUrl: 'https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'
+      }
+    };
+
+    const preferredLanguage = (() => {
+      const queryLang = new URLSearchParams(window.location.search).get('lang');
+      const raw = (queryLang || navigator.language || 'ja').toLowerCase();
+      return raw.startsWith('ja') ? 'ja' : 'en';
+    })();
+    const text = translations[preferredLanguage] || translations.ja;
+
+    document.documentElement.lang = text.htmlLang;
+    document.title = text.title;
+    document.querySelectorAll('[data-i18n]').forEach((element) => {
+      const key = element.getAttribute('data-i18n');
+      if (key && text[key]) {
+        element.textContent = text[key];
+      }
+    });
+
+    const appStoreLink = document.getElementById('appStoreLink');
+    const appStoreBadge = document.getElementById('appStoreBadge');
+    const googlePlayLink = document.getElementById('googlePlayLink');
+    const googlePlayBadge = document.getElementById('googlePlayBadge');
+    appStoreLink.setAttribute('aria-label', text.appStoreAlt);
+    appStoreBadge.src = text.appStoreBadgeUrl;
+    appStoreBadge.alt = text.appStoreAlt;
+    googlePlayLink.setAttribute('aria-label', text.googlePlayAlt);
+    googlePlayBadge.src = text.googlePlayBadgeUrl;
+    googlePlayBadge.alt = text.googlePlayAlt;
+
     const params = new URLSearchParams(window.location.search);
     const code = (params.get('code') || params.get('invite_code') || '').trim();
     const validState = document.getElementById('validState');
@@ -335,7 +407,7 @@
           copyToast.classList.remove('hidden');
           window.setTimeout(() => copyToast.classList.add('hidden'), 1800);
         } catch (error) {
-          window.prompt('招待コードをコピーしてください', code);
+          window.prompt(text.copyPrompt, code);
         }
       });
     }
