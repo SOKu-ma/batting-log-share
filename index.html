@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
   <title>野球打率ノート | 共有された記録</title>
   <style>
     :root {
@@ -187,6 +188,46 @@
       object-fit: contain;
     }
 
+    .inlinePanel {
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #f8fafc;
+    }
+
+    .inlinePanel h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .statusMessage {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      color: var(--blue);
+      background: rgba(31, 95, 149, 0.09);
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.55;
+    }
+
+    .notice {
+      margin-top: 12px;
+      padding: 14px;
+      border-left: 4px solid var(--accent);
+      border-radius: 14px;
+      background: #fff8ea;
+    }
+
+    .noticeTitle {
+      margin-bottom: 4px;
+      color: var(--navy);
+      font-weight: 900;
+    }
+
     .steps {
       display: grid;
       gap: 10px;
@@ -258,45 +299,51 @@
       </div>
       <a id="openAppButton" class="button primary" href="#" data-i18n="openAppButton">アプリで開く</a>
       <p style="margin-top: 12px;" data-i18n="openAppHelp">アプリが入っている場合は、上のボタンで招待コード入力済みの画面を開けます。</p>
+      <div id="openAppStatus" class="statusMessage hidden" role="status" aria-live="polite"></div>
+      <div id="openFallbackNotice" class="notice hidden">
+        <div class="noticeTitle" data-i18n="openAppFallbackTitle">アプリが開かない場合</div>
+        <p data-i18n="openAppFallbackBody">まだインストールされていない可能性があります。下のボタンからインストールし、インストール後にこのページへ戻ってもう一度「アプリで開く」を押してください。</p>
+      </div>
+      <div id="storePrompt" class="inlinePanel">
+        <h2 data-i18n="storeTitle">アプリがない場合</h2>
+        <p data-i18n="storeBody">先にアプリをインストールしてから、このページまたは受け取ったメッセージに戻ってください。</p>
+        <div class="storeBadges">
+          <a
+            id="appStoreLink"
+            class="storeBadgeLink"
+            href="https://apps.apple.com/jp/app/baseball-stats-at-bat-log/id6761696678"
+            aria-label="App Storeからダウンロード"
+            rel="noreferrer"
+          >
+            <img
+              id="appStoreBadge"
+              class="storeBadge"
+              src="assets/store/app-store-ja.svg"
+              alt="App Storeからダウンロード"
+            >
+          </a>
+          <a
+            id="googlePlayLink"
+            class="storeBadgeLink"
+            href="https://play.google.com/store/apps/details?id=com.sokuma.battinglogapp"
+            aria-label="Google Playで手に入れよう"
+            rel="noreferrer"
+          >
+            <img
+              id="googlePlayBadge"
+              class="storeBadge"
+              src="assets/store/google-play-ja.png"
+              alt="Google Play で手に入れよう"
+            >
+          </a>
+        </div>
+      </div>
       <div id="copyToast" class="toast hidden" data-i18n="copiedToast">コピーしました</div>
     </section>
 
     <section id="missingState" class="card hidden">
       <h2 style="margin: 0 0 8px;" data-i18n="missingTitle">招待コードが見つかりません</h2>
       <p data-i18n="missingBody">共有されたURLをもう一度開くか、送信者から招待コードを受け取ってください。</p>
-    </section>
-
-    <section class="card">
-      <h2 style="margin: 0 0 8px;" data-i18n="storeTitle">アプリがない場合</h2>
-      <p data-i18n="storeBody">先にアプリをインストールしてから、このページまたは受け取ったメッセージに戻ってください。</p>
-      <div class="storeBadges">
-        <a
-          id="appStoreLink"
-          class="storeBadgeLink"
-          href="https://apps.apple.com/jp/app/baseball-stats-at-bat-log/id6761696678"
-          aria-label="App Storeからダウンロード"
-        >
-          <img
-            id="appStoreBadge"
-            class="storeBadge"
-            src="assets/store/app-store-ja.svg"
-            alt="App Storeからダウンロード"
-          >
-        </a>
-        <a
-          id="googlePlayLink"
-          class="storeBadgeLink"
-          href="https://play.google.com/store/apps/details?id=com.sokuma.battinglogapp"
-          aria-label="Google Playで手に入れよう"
-        >
-          <img
-            id="googlePlayBadge"
-            class="storeBadge"
-            src="assets/store/google-play-ja.png"
-            alt="Google Play で手に入れよう"
-          >
-        </a>
-      </div>
     </section>
 
     <section class="card">
@@ -321,6 +368,10 @@
         copyButton: 'コピー',
         openAppButton: 'アプリで開く',
         openAppHelp: 'アプリが入っている場合は、上のボタンで招待コード入力済みの画面を開けます。',
+        openAppAttempting: 'アプリを開こうとしています...',
+        openAppFallbackStatus: '反応がない場合は、まだインストールされていない可能性があります。',
+        openAppFallbackTitle: 'アプリが開かない場合',
+        openAppFallbackBody: 'まだインストールされていない可能性があります。下のボタンからインストールし、インストール後にこのページへ戻ってもう一度「アプリで開く」を押してください。',
         copiedToast: 'コピーしました',
         missingTitle: '招待コードが見つかりません',
         missingBody: '共有されたURLをもう一度開くか、送信者から招待コードを受け取ってください。',
@@ -346,6 +397,10 @@
         copyButton: 'Copy',
         openAppButton: 'Open in app',
         openAppHelp: 'If the app is installed, this opens the invite screen with the code filled in.',
+        openAppAttempting: 'Trying to open the app...',
+        openAppFallbackStatus: 'If nothing happens, the app may not be installed yet.',
+        openAppFallbackTitle: 'If the app does not open',
+        openAppFallbackBody: 'The app may not be installed yet. Install it from the button below, then return to this page and tap Open in app again.',
         copiedToast: 'Copied',
         missingTitle: 'Invite code not found',
         missingBody: 'Open the shared URL again, or ask the sender for the invite code.',
@@ -396,6 +451,9 @@
     const missingState = document.getElementById('missingState');
     const inviteCode = document.getElementById('inviteCode');
     const openAppButton = document.getElementById('openAppButton');
+    const openAppStatus = document.getElementById('openAppStatus');
+    const openFallbackNotice = document.getElementById('openFallbackNotice');
+    const storePrompt = document.getElementById('storePrompt');
     const copyButton = document.getElementById('copyButton');
     const copyToast = document.getElementById('copyToast');
 
@@ -405,6 +463,36 @@
     } else {
       inviteCode.textContent = code;
       openAppButton.href = `battinglog://share-invite?code=${encodeURIComponent(code)}`;
+      let openAppFallbackTimer;
+      let pageLeftAfterOpenAttempt = false;
+
+      const clearOpenAppFallbackTimer = () => {
+        if (openAppFallbackTimer) {
+          window.clearTimeout(openAppFallbackTimer);
+          openAppFallbackTimer = undefined;
+        }
+      };
+
+      window.addEventListener('pagehide', clearOpenAppFallbackTimer);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          pageLeftAfterOpenAttempt = true;
+          clearOpenAppFallbackTimer();
+        }
+      });
+      openAppButton.addEventListener('click', () => {
+        pageLeftAfterOpenAttempt = false;
+        clearOpenAppFallbackTimer();
+        openFallbackNotice.classList.add('hidden');
+        openAppStatus.textContent = text.openAppAttempting;
+        openAppStatus.classList.remove('hidden');
+        openAppFallbackTimer = window.setTimeout(() => {
+          if (document.hidden || pageLeftAfterOpenAttempt) return;
+          openAppStatus.textContent = text.openAppFallbackStatus;
+          openFallbackNotice.classList.remove('hidden');
+          storePrompt.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 1400);
+      });
       copyButton.addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText(code);
