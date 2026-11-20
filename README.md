@@ -27,3 +27,10 @@ https://soku-ma.github.io/batting-log-share/invite.html?code=XXXX
 - Google Play: `referrer` に `utm_source=batting-log&utm_medium=share&utm_campaign=share_invite_page`
 
 アプリが送る招待の文章に直接書くストアのリンクは `share_invite` です（ページ経由と分けて数える）。
+
+## 計測（Umami）
+
+so-kuma.com と同じ Umami Cloud（Cookie なし）でページの表示とタップを数えます。`data-exclude-search` / `data-exclude-hash` で URL のクエリを送らないため、招待コードは送りません。
+
+- `invite_open_app_click`：「アプリで開く」（app, lang）
+- `store_click`：ストアのボタン（app, store, from=`invite_page`, lang）
