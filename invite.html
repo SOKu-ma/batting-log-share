@@ -286,6 +286,7 @@
       }
     }
   </style>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="f3c522c4-7592-46c8-b0a9-883d2367c4b2" data-domains="www.so-kuma.com" data-exclude-search="true" data-exclude-hash="true"></script>
 </head>
 <body>
   <main>
@@ -322,7 +323,7 @@
           </svg>
         </button>
       </div>
-      <a id="openAppButton" class="button primary" href="#" data-i18n="openAppButton">アプリで開く</a>
+      <a id="openAppButton" class="button primary" href="#" data-umami-event="invite_open_app_click" data-umami-event-app="batting-log" data-i18n="openAppButton">アプリで開く</a>
       <p style="margin-top: 12px;" data-i18n="openAppHelp">アプリが入っている場合は、上のボタンで招待コード入力済みの画面を開けます。</p>
       <div id="openAppStatus" class="statusMessage hidden" role="status" aria-live="polite"></div>
       <div id="openFallbackNotice" class="notice hidden">
@@ -335,6 +336,10 @@
         <div class="storeBadges">
           <a
             id="appStoreLink"
+            data-umami-event="store_click"
+            data-umami-event-app="batting-log"
+            data-umami-event-store="ios"
+            data-umami-event-from="invite_page"
             class="storeBadgeLink"
             href="https://apps.apple.com/jp/app/baseball-stats-at-bat-log/id6761696678?pt=122938945&ct=share_invite_page&mt=8"
             aria-label="App Storeからダウンロード"
@@ -349,6 +354,10 @@
           </a>
           <a
             id="googlePlayLink"
+            data-umami-event="store_click"
+            data-umami-event-app="batting-log"
+            data-umami-event-store="android"
+            data-umami-event-from="invite_page"
             class="storeBadgeLink"
             href="https://play.google.com/store/apps/details?id=com.sokuma.battinglogapp&referrer=utm_source%3Dbatting-log%26utm_medium%3Dshare%26utm_campaign%3Dshare_invite_page"
             aria-label="Google Playで手に入れよう"
@@ -451,6 +460,10 @@
     const text = translations[preferredLanguage] || translations.ja;
 
     document.documentElement.lang = text.htmlLang;
+    // 計測のイベントにページの言語を添える（招待コードは送らない）。
+    document.querySelectorAll('[data-umami-event]').forEach((el) => {
+      el.setAttribute('data-umami-event-lang', text.htmlLang);
+    });
     document.title = text.title;
     document.querySelectorAll('[data-i18n]').forEach((element) => {
       const key = element.getAttribute('data-i18n');
